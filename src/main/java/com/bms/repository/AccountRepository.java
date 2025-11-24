@@ -21,18 +21,19 @@ public interface AccountRepository extends
         JpaRepository<Account, Long> {
 
     @Query("""
-                SELECT a FROM Account AS a
-                WHERE (:type IS NULL OR a.type = :type)
-                    AND (:status IS NULL OR a.status = :status)
-                    AND (:min IS NULL OR a.balance >= :min)
-                    AND (:max IS NULL OR a.balance <= :max)
-            """)
+        SELECT a FROM Account AS a
+        WHERE (:type IS NULL OR a.type = :type)
+            AND (:status IS NULL OR a.status = :status)
+            AND (:min IS NULL OR a.balance >= :min)
+            AND (:max IS NULL OR a.balance <= :max)
+    """)
     Page<Account> findAllAccounts(
-            @Param("type") AccountType type,
-            @Param("status") AccountStatus status,
-            @Param("min") BigDecimal min,
-            @Param("max") BigDecimal max,
-            Pageable pageable);
+        @Param("type") AccountType type,
+        @Param("status") AccountStatus status,
+        @Param("min") BigDecimal min,
+        @Param("max") BigDecimal max,
+        Pageable pageable
+    );
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT a FROM Account AS a WHERE a.id = :id")

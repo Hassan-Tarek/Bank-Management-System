@@ -38,15 +38,4 @@ public interface TransactionRepository extends
     List<Transaction> findByCustomerId(
             @Param("customerId") Long customerId
     );
-
-//    @Query("""
-//        SELECT COUNT(t) > 0 FROM Transaction AS t
-//        WHERE t.reference = :reference
-//            AND (t.sender.customer.id = :customerId
-//                OR t.receiver.customer.id = :customerId)
-//    """)
-//    boolean existsByReferenceAndCustomerId(
-//            @Param("reference") String reference,
-//            @Param("customerId") Long customerId
-//    );
 }
